@@ -4,7 +4,7 @@ import axios from 'axios';
 
 class MainApp extends Component{
     state = {
-        title : "Heroes Application",
+        title : "Admin Dashboard",
         heroeslist : [],
         nhfirstname : '',
         nhlastname : '',
