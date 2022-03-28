@@ -20,7 +20,7 @@ class MainApp extends Component{
     //-----------------------------------
     reload = ()=>{
         axios
-        .get("http://localhost:5050/data")
+        .get("https://crudserver.aravindaddula.repl.co/")
         .then(res => this.setState({ heroeslist : res.data}))
         .catch(err => console.log("Error : ", err))
     }
@@ -30,7 +30,7 @@ class MainApp extends Component{
     //-----------------------------------
     editHandler = (heroid)=>{
         axios
-        .get("http://localhost:5050/edit/"+heroid)
+        .get("https://crudserver.aravindaddula.repl.co/"+heroid)
         .then(res=>{
             this.setState({
                 edit_hfirstname : res.data.firstname,
@@ -67,7 +67,7 @@ class MainApp extends Component{
     //-----------------------------------
     deleteHandler = (heroid)=>{
         axios
-        .delete("http://localhost:5050/delete/"+heroid)
+        .delete("https://crudserver.aravindaddula.repl.co/"+heroid)
         .then(res=>{
             alert(JSON.stringify(res.data));
             this.reload();
@@ -91,7 +91,7 @@ class MainApp extends Component{
     updateHeroHandler = (evt)=>{
         evt.preventDefault();
         axios
-        .post("http://localhost:5050/edit/"+this.state.edit_hid,{
+        .post("https://crudserver.aravindaddula.repl.co/"+this.state.edit_hid,{
             firstname : this.state.edit_hfirstname,
             lastname : this.state.edit_hlastname,
             email : this.state.edit_hemail,
