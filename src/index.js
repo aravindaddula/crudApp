@@ -47,7 +47,7 @@ class MainApp extends Component{
     addHeroHandler = (evt)=>{
         evt.preventDefault();
         axios
-        .post("http://localhost:5050/data",{
+        .post("https://crudserver.aravindaddula.repl.co/",{
             firstname : this.state.nhfirstname,
             lastname : this.state.nhlastname,
             email : this.state.nhemail,
