@@ -3,7 +3,6 @@ export default class EditHandler extends React.Component{
     render(){
         return <div>
             {
-
                 editHandler = (heroid)=>{
                     axios
                     .get("http://localhost:5050/edit/" + heroid)
@@ -19,9 +18,7 @@ export default class EditHandler extends React.Component{
                     })
                     .catch(err=>console.log("Error : ", err))
                 }
-
             }
         </div>
     }
 }
-

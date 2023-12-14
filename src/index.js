@@ -19,10 +19,9 @@ class MainApp extends Component{
     }
     //-----------------------------------
     reload = ()=>{
-        axios
-        .get("https://crudserver.aravindaddula.repl.co/")
-        .then(res => this.setState({ heroeslist : res.data}))
-        .catch(err => console.log("Error : ", err))
+        axios.get("http://localhost:5050/data")
+            .then(res => this.setState({ heroeslist : res.data}))
+            .catch(err => console.log("Error : ", err))
     }
     componentDidMount(){
         this.reload();
@@ -30,7 +29,7 @@ class MainApp extends Component{
     //-----------------------------------
     editHandler = (heroid)=>{
         axios
-        .get("https://crudserver.aravindaddula.repl.co/"+heroid)
+        .get("http://localhost:5050/edit/"+heroid)
         .then(res=>{
             this.setState({
                 edit_hfirstname : res.data.firstname,
@@ -47,7 +46,7 @@ class MainApp extends Component{
     addHeroHandler = (evt)=>{
         evt.preventDefault();
         axios
-        .post("https://crudserver.aravindaddula.repl.co/",{
+        .post("http://localhost:5050/data",{
             firstname : this.state.nhfirstname,
             lastname : this.state.nhlastname,
             email : this.state.nhemail,
@@ -67,7 +66,7 @@ class MainApp extends Component{
     //-----------------------------------
     deleteHandler = (heroid)=>{
         axios
-        .delete("https://crudserver.aravindaddula.repl.co/"+heroid)
+        .delete("http://localhost:5050/delete/"+heroid)
         .then(res=>{
             alert(JSON.stringify(res.data));
             this.reload();
@@ -84,14 +83,16 @@ class MainApp extends Component{
     updateInfoHandler = (evt)=>{
         if(evt.target.id === 'e_hfname'){ this.setState({ edit_hfirstname : evt.target.value }) }
         else if(evt.target.id === 'e_hlname'){  this.setState({ edit_hlastname : evt.target.value }) }
-        else if(evt.target.id === 'e_hemail'){  this.setState({ edit_hemail : evt.target.value }) }
+        else if(evt.target.id === 'e_hemail'){
+              this.setState({ edit_hemail : evt.target.value }) 
+            }
         else{ this.setState({ edit_hcity : evt.target.value }) }
     }
     //-------------------------
     updateHeroHandler = (evt)=>{
         evt.preventDefault();
         axios
-        .post("https://crudserver.aravindaddula.repl.co/"+this.state.edit_hid,{
+        .post("http://localhost:5050/edit/"+this.state.edit_hid,{
             firstname : this.state.edit_hfirstname,
             lastname : this.state.edit_hlastname,
             email : this.state.edit_hemail,
@@ -130,24 +131,23 @@ class MainApp extends Component{
                               <form>
                                 <div className="mb-3">
                                     <label htmlFor="hfname" className="form-label">First Name</label>
-                                    <input onChange={ this.changeHandler } className="form-control" id="hfname" value={ this.state.nhfirstname }/>
+                                    <input onChange={ this.changeHandler } className="form-control" id="hfname" value={ this.state.nhfirstname } required/>
                                 </div>
                                 <div className="mb-3">
                                     <label htmlFor="hlname" className="form-label">Last Name</label>
-                                    <input onChange={ this.changeHandler } className="form-control" id="hlname" value={ this.state.nhlastname }/>
+                                    <input onChange={ this.changeHandler } className="form-control" id="hlname" value={ this.state.nhlastname } required/>
                                 </div>
                                 <div className="mb-3">
                                     <label htmlFor="hemail" className="form-label">email</label>
-                                    <input onChange={ this.changeHandler } type="email" className="form-control" id="hemail" value={ this.state.nhemail }/>
+                                    <input onChange={ this.changeHandler } type="email" className="form-control" id="hemail" value={ this.state.nhemail } required/>
                                 </div> 
                                 <div className="mb-3">
                                     <label htmlFor="hcity" className="form-label">City</label>
-                                    <input onChange={ this.changeHandler } className="form-control" id="hcity" value={ this.state.nhcity }/>
+                                    <input onChange={ this.changeHandler } className="form-control" id="hcity" value={ this.state.nhcity } required/>
                                 </div> 
-                                <button onClick={this.addHeroHandler} type="submit" className="btn btn-primary">Add Hero</button>
-                            </form>
+                            <button onClick={this.addHeroHandler} type="submit" className="btn btn-primary">Add Hero</button>
+                    </form>
                         </div>}
-
                     <hr/>
                     {/* <ol>{ this.state.heroeslist.map(hero => <li key={ hero._id }>{ hero.firstname +' '+hero.lastname }</li>)}</ol> */}
                     <table className="table">
